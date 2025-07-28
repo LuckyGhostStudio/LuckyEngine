@@ -1,0 +1,6 @@
+# LuckyEngine
+A mini 2D game engine based on EasyX, containing basic functionalities of a game engine for learning and practice.
+一个基于 EasyX 的迷你 2D 游戏引擎，包含游戏引擎的基本功能，用于学习和练习。
+
+Updating...
+更新中...
