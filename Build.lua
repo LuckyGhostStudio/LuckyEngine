@@ -2,7 +2,7 @@
 workspace "LuckyEngine"      -- 解决方案名称
     architecture "x64"  -- 体系结构
     configurations { "Debug", "Release", "Dist" }
-    startproject "LuckyApp"
+    startproject "LuckyApplication"
 
     flags { "MultiProcessorCompile" }
 
@@ -12,4 +12,4 @@ group "Core"
     include "LuckyEngine/Build-LuckyEngine.lua"
 group ""
 
-include "LuckyApp/Build-LuckyApp.lua"
+include "LuckyApplication/Build-LuckyApplication.lua"
