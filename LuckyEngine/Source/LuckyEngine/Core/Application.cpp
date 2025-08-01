@@ -22,7 +22,7 @@ namespace LuckyEngine
     {
         while (m_Running)
         {
-            std::cout << "Update" << std::endl;
+            //std::cout << "Update" << std::endl;
         }
     }
 
