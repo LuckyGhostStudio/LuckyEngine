@@ -27,7 +27,7 @@ namespace LuckyEngine
         LogUtility::SetConsoleColor(level);
 
         std::ostringstream logStream;
-        logStream << header << ": " << message << std::endl;
+        logStream << "[" << timeStream.str() << "] " << header << ": " << message << std::endl;
 
         // Êä³öÈÕÖ¾
         std::printf(logStream.str().c_str());

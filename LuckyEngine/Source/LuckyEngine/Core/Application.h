@@ -2,6 +2,7 @@
 
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
+#include "LayerStack.h"
 
 namespace LuckyEngine
 {
@@ -13,6 +14,30 @@ namespace LuckyEngine
     public:
         Application();
         virtual ~Application();
+
+        /// <summary>
+        /// 添加普通层到层栈
+        /// </summary>
+        /// <param name="layer">普通层</param>
+        void PushLayer(Layer* layer) { m_LayerStack.PushLayer(layer); }
+
+        /// <summary>
+        /// 添加覆盖层到层栈
+        /// </summary>
+        /// <param name="layer">覆盖层</param>
+        void PushOverlay(Layer* layer) { m_LayerStack.PushOverlay(layer); }
+
+        /// <summary>
+        /// 从层栈移除普通层
+        /// </summary>
+        /// <param name="layer">普通层</param>
+        void PopLayer(Layer* layer) { m_LayerStack.PopLayer(layer); }
+
+        /// <summary>
+        /// 从层栈移除覆盖层
+        /// </summary>
+        /// <param name="layer">覆盖层</param>
+        void PopOverlay(Layer* layer) { m_LayerStack.PopOverlay(layer); }
 
         /// <summary>
         /// 事件回调函数
@@ -49,6 +74,7 @@ namespace LuckyEngine
         static Application* s_Instance;
 
         Scope<Window> m_Window;     // 窗口
+        LayerStack m_LayerStack;    // 层栈
 
         bool m_Running = true;      // 运行状态
         bool m_Minimized = false;   // 窗口最小化

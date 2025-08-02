@@ -25,12 +25,32 @@ namespace LuckyEngine
         EventDispatcher dispatcher(e);  // 事件调度器
         dispatcher.Dispatch<WindowCloseEvent>(LC_BIND_EVENT_FUNC(Application::OnWindowClose));      // 窗口关闭事件
         dispatcher.Dispatch<WindowResizeEvent>(LC_BIND_EVENT_FUNC(Application::OnWindowResize));    // 窗口大小改变事
+
+        // 从最顶层向下遍历层栈
+        for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+        {
+            if (e.m_Handled)
+            {
+                break;  // 事件已处理
+            }
+            (*--it)->OnEvent(e);    // 层获取并处理事件
+        }
     }
 
     void Application::Run()
     {
         while (m_Running)
         {
+            // 窗口未最小化
+            if (!m_Minimized)
+            {
+                // 更新层栈中所有层
+                for (Layer* layer : m_LayerStack)
+                {
+                    layer->OnUpdate();
+                }
+            }
+
             m_Window->OnUpdate();   // 更新窗口
         }
     }
