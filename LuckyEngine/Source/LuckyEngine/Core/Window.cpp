@@ -5,6 +5,8 @@
 #include "LuckyEngine/Core/Events/KeyEvent.h"
 #include "LuckyEngine/Core/Events/MouseEvent.h"
 
+#include "LuckyEngine/Utils/ConvertUtility.h"
+
 #ifndef GET_X_LPARAM
 #define GET_X_LPARAM(lParam) ((int)(short)LOWORD(lParam))
 #endif
@@ -48,9 +50,7 @@ namespace LuckyEngine
         SetWindowLong(m_Window, GWL_STYLE, style);
 
         // 设置窗口标题
-        TCHAR szTitle[256];
-        _stprintf_s(szTitle, _T("%hs"), m_Data.Title.c_str());
-        SetWindowText(m_Window, szTitle);
+        SetWindowText(m_Window, ConvertUtility::StringToWString(m_Data.Title).c_str());
 
         m_Context = EasyXContext::Create(m_Window); // 创建 EasyX 上下文
         m_Context->Init();                          // 初始化上下文
