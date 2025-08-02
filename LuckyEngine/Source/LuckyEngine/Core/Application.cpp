@@ -45,6 +45,10 @@ namespace LuckyEngine
     {
         while (m_Running)
         {
+            // Test
+            cleardevice();
+            rectangle(100, 100, 300, 200); 
+
             // 窗口未最小化
             if (!m_Minimized)
             {
@@ -71,11 +75,16 @@ namespace LuckyEngine
 
     bool Application::OnWindowResize(WindowResizeEvent& e)
     {
-        if (e.GetWidth() == 0 || e.GetHeight() == 0)
+        int width = e.GetWidth();   // 宽
+        int height = e.GetHeight(); // 高
+
+        if (width == 0 || height == 0)
         {
             m_Minimized = true; // 窗口最小化
             return false;
         }
+
+        Resize(nullptr, width, height); // 调整窗口大小
 
         m_Minimized = false;
 

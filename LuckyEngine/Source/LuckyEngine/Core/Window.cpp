@@ -41,9 +41,16 @@ namespace LuckyEngine
         // 创建 EasyX 图形窗口
         initgraph((int)props.Width, (int)props.Height);
         m_Window = GetHWnd();
+
+        // 修改窗口样式为可调整大小
+        LONG style = GetWindowLong(m_Window, GWL_STYLE);
+        style |= WS_THICKFRAME | WS_MAXIMIZEBOX | WS_MINIMIZEBOX;
+        SetWindowLong(m_Window, GWL_STYLE, style);
+
+        // 设置窗口标题
         TCHAR szTitle[256];
         _stprintf_s(szTitle, _T("%hs"), m_Data.Title.c_str());
-        SetWindowText(m_Window, szTitle);   // 设置窗口标题
+        SetWindowText(m_Window, szTitle);
 
         m_Context = EasyXContext::Create(m_Window); // 创建 EasyX 上下文
         m_Context->Init();                          // 初始化上下文
@@ -81,7 +88,7 @@ namespace LuckyEngine
                 m_Data.EventCallback(event);
                 break;
             }
-                              // 窗口大小变化
+            // 窗口大小改变
             case WM_SIZE:
             {
                 // 窗口更新后大小
@@ -93,22 +100,22 @@ namespace LuckyEngine
 
                 WindowResizeEvent event(width, height); // 创建窗口大小改变事件
                 m_Data.EventCallback(event);
+                break;
             }
-            break;
             // 键盘按键按下
             case WM_KEYDOWN:
             {
-                KeyPressedEvent event(wParam, false);   // 按键按下事件
+                KeyPressedEvent event((int)wParam, false);   // 按键按下事件
                 m_Data.EventCallback(event);
+                break;
             }
-            break;
             // 键盘按键抬起
             case WM_KEYUP:
             {
-                KeyReleasedEvent event(wParam);     // 按键抬起事件
+                KeyReleasedEvent event((int)wParam);     // 按键抬起事件
                 m_Data.EventCallback(event);
+                break;
             }
-            break;
             // 鼠标按下事件
             case WM_LBUTTONDOWN:
             {

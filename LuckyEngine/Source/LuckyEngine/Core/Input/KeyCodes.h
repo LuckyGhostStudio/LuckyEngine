@@ -56,8 +56,8 @@ namespace LuckyEngine
         Semicolon = VK_OEM_1,      // ;
         Equal = VK_OEM_PLUS,       // = (需要配合Shift)
         LeftBracket = VK_OEM_4,    // [
-        Backslash = VK_OEM_5,      // \
-            RightBracket = VK_OEM_6,   // ]
+        Backslash = VK_OEM_5,      // '\'
+        RightBracket = VK_OEM_6,   // ]
         GraveAccent = VK_OEM_3,    // `
 
         // 功能键
