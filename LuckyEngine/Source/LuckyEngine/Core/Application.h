@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Window.h"
 #include "Events/ApplicationEvent.h"
 
 namespace LuckyEngine
@@ -17,7 +18,7 @@ namespace LuckyEngine
         /// 事件回调函数
         /// </summary>
         /// <param name="e">事件</param>
-        void OnEvent(Event& event);
+        void OnEvent(Event& e);
 
         /// <summary>
         /// 运行：主循环
@@ -46,6 +47,8 @@ namespace LuckyEngine
         bool OnWindowResize(WindowResizeEvent& e);
     private:
         static Application* s_Instance;
+
+        Scope<Window> m_Window;     // 窗口
 
         bool m_Running = true;      // 运行状态
         bool m_Minimized = false;   // 窗口最小化

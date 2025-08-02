@@ -10,6 +10,9 @@ namespace LuckyEngine
         LC_CORE_ASSERT(!s_Instance, "Application 已存在!");
 
         s_Instance = this;
+
+        m_Window = Window::Create(WindowProps());                               // 创建窗口
+        m_Window->SetEventCallback(LC_BIND_EVENT_FUNC(Application::OnEvent));   // 设置回调函数
     }
 
     Application::~Application()
@@ -17,9 +20,9 @@ namespace LuckyEngine
 
     }
 
-    void Application::OnEvent(Event& event)
+    void Application::OnEvent(Event& e)
     {
-        EventDispatcher dispatcher(event);  // 事件调度器
+        EventDispatcher dispatcher(e);  // 事件调度器
         dispatcher.Dispatch<WindowCloseEvent>(LC_BIND_EVENT_FUNC(Application::OnWindowClose));      // 窗口关闭事件
         dispatcher.Dispatch<WindowResizeEvent>(LC_BIND_EVENT_FUNC(Application::OnWindowResize));    // 窗口大小改变事
     }
@@ -28,7 +31,7 @@ namespace LuckyEngine
     {
         while (m_Running)
         {
-            
+            m_Window->OnUpdate();   // 更新窗口
         }
     }
 

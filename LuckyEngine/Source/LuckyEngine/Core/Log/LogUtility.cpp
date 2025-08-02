@@ -26,8 +26,11 @@ namespace LuckyEngine
         // 设置颜色
         LogUtility::SetConsoleColor(level);
 
+        std::ostringstream logStream;
+        logStream << header << ": " << message << std::endl;
+
         // 输出日志
-        std::cout << "[" << timeStream.str() << "] " << header << ": " << message << std::endl;
+        std::printf(logStream.str().c_str());
 
         // 重置颜色
         LogUtility::ResetConsoleColor();
