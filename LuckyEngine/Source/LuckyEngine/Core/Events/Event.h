@@ -107,8 +107,10 @@ namespace LuckyEngine
         template<typename T>
         bool Dispatch(EventFn<T> func)
         {
-            if (m_Event.GetEventType() == T::GetStaticType()) {     // 接收到的事件类型 == 事件函数类型
-                m_Event.m_Handled = func(*(T*)&m_Event);            // 执行事件函数
+            // 接收到的事件类型 == 事件函数类型
+            if (m_Event.GetEventType() == T::GetStaticType())
+            {
+                m_Event.m_Handled = func(*(T*)&m_Event);    // 执行事件函数
                 return true;
             }
             return false;

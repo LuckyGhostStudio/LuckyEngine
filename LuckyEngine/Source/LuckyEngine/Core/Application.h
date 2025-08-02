@@ -55,6 +55,7 @@ namespace LuckyEngine
         /// </summary>
         void Close();
 
+        Window& GetWindow() { return *m_Window; }
         static Application& GetInstance() { return *s_Instance; }
     private:
         /// <summary>

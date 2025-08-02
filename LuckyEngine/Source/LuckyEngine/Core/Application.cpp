@@ -1,6 +1,8 @@
 #include "lcpch.h"
 #include "Application.h"
 
+#include "Input/Input.h"
+#include "Events/KeyEvent.h"
 namespace LuckyEngine
 {
     Application* Application::s_Instance = nullptr;
@@ -25,6 +27,8 @@ namespace LuckyEngine
         EventDispatcher dispatcher(e);  // 事件调度器
         dispatcher.Dispatch<WindowCloseEvent>(LC_BIND_EVENT_FUNC(Application::OnWindowClose));      // 窗口关闭事件
         dispatcher.Dispatch<WindowResizeEvent>(LC_BIND_EVENT_FUNC(Application::OnWindowResize));    // 窗口大小改变事
+
+        LC_CORE_INFO(e.ToString());
 
         // 从最顶层向下遍历层栈
         for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)

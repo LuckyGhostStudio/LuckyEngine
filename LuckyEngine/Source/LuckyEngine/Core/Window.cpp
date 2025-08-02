@@ -98,7 +98,7 @@ namespace LuckyEngine
             // 键盘按键按下
             case WM_KEYDOWN:
             {
-                KeyPressedEvent event(wParam, 0);  // 按键按下事件
+                KeyPressedEvent event(wParam, false);   // 按键按下事件
                 m_Data.EventCallback(event);
             }
             break;
