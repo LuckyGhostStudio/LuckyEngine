@@ -2,7 +2,7 @@
 
 namespace LuckyEngine
 {
-    enum class MouseCode : int
+    enum class MouseCode : uint32_t
     {
         Button0 = VK_LBUTTON,      // ЪѓБъзѓМќ
         Button1 = VK_RBUTTON,      // ЪѓБъгвМќ

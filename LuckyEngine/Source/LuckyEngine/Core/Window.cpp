@@ -46,7 +46,7 @@ namespace LuckyEngine
 
         // 修改窗口样式为可调整大小
         LONG style = GetWindowLong(m_Window, GWL_STYLE);
-        style |= WS_THICKFRAME | WS_MAXIMIZEBOX | WS_MINIMIZEBOX;
+        style |= WS_THICKFRAME | WS_MAXIMIZEBOX | WS_MINIMIZEBOX; 
         SetWindowLong(m_Window, GWL_STYLE, style);
 
         // 设置窗口标题

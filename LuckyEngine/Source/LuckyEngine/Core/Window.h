@@ -4,7 +4,7 @@
 
 #include "LuckyEngine/Core/Base.h"
 #include "LuckyEngine/Core/Events/Event.h"
-#include "LuckyEngine/Core/EasyXContext.h"
+#include "LuckyEngine/Renderer/EasyXContext.h"
 
 namespace LuckyEngine
 {

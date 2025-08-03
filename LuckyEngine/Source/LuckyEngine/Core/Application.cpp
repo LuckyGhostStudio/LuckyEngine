@@ -3,6 +3,10 @@
 
 #include "Input/Input.h"
 #include "Events/KeyEvent.h"
+#include "LuckyEngine/Renderer/Renderer.h"
+#include "LuckyEngine/Renderer/Renderer2D.h"
+#include "LuckyEngine/Utils/CriticalSection.h"
+
 namespace LuckyEngine
 {
     Application* Application::s_Instance = nullptr;
@@ -15,6 +19,9 @@ namespace LuckyEngine
 
         m_Window = Window::Create(WindowProps());                               // 创建窗口
         m_Window->SetEventCallback(LC_BIND_EVENT_FUNC(Application::OnEvent));   // 设置回调函数
+
+        CriticalSection::Init();    // 初始化临界区
+        Renderer::Init();           // 初始化渲染器
     }
 
     Application::~Application()
@@ -45,9 +52,18 @@ namespace LuckyEngine
     {
         while (m_Running)
         {
-            // Test
-            cleardevice();
-            rectangle(100, 100, 300, 200); 
+            {
+                CriticalSection::Lock lock;   // RAII锁，确保线程安全
+
+                RenderCommand::SetClearColor(RGB(111, 111, 111));
+                RenderCommand::Clear();
+
+                Renderer2D::BeginScene();
+
+                Renderer2D::DrawRect(100, 100, 100, 100);
+
+                Renderer2D::EndScene();
+            }
 
             // 窗口未最小化
             if (!m_Minimized)
@@ -65,8 +81,12 @@ namespace LuckyEngine
 
     void Application::Close()
     {
+        Renderer::Shutdown();           // 关闭渲染器
+        CriticalSection::Shutdown();    // 关闭临界区
+
         m_Running = false;
     }
+
     bool Application::OnWindowClose(WindowCloseEvent& e)
     {
         m_Running = false;  // 结束运行
@@ -75,6 +95,8 @@ namespace LuckyEngine
 
     bool Application::OnWindowResize(WindowResizeEvent& e)
     {
+        CriticalSection::Lock lock;   // RAII锁，确保线程安全
+
         int width = e.GetWidth();   // 宽
         int height = e.GetHeight(); // 高
 
@@ -84,7 +106,7 @@ namespace LuckyEngine
             return false;
         }
 
-        Resize(nullptr, width, height); // 调整窗口大小
+        Renderer::OnWindowResize(width, height);    // 调整渲染器视口大小
 
         m_Minimized = false;
 

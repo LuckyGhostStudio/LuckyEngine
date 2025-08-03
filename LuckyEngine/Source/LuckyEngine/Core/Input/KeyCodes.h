@@ -2,7 +2,7 @@
 
 namespace LuckyEngine
 {
-    enum class KeyCode : int
+    enum class KeyCode : uint32_t
     {
         // »ù±¾°´¼ü
         Space = VK_SPACE,
